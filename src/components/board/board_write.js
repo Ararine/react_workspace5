@@ -45,6 +45,14 @@ const BoardWrite = () => {
 
     if (filename !== null) formData.append("filename", filename);
 
+    //답변글이면
+    if (num !== undefined) {
+      formData.append("num", num);
+      formData.append("ref", ref);
+      formData.append("re_step", re_step);
+      formData.append("re_level", re_level);
+    }
+
     const config = {
       headers: { "Content-Type": "multipart/form-data" },
     };
@@ -61,7 +69,8 @@ const BoardWrite = () => {
           filename: null,
         });
 
-        navigator(`/board/list/${currentPage ? currentPage : 1}`);
+        //navigator(`/board/list/${currentPage ? currentPage : 1}`);
+        navigator(`/board/list/${res.data}`);
       })
       .catch((err) => {
         console.error(err.message);

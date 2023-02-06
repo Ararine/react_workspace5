@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { baseUrl } from "../../commonApi/todoApi";
 
 const BoardView = () => {
@@ -23,6 +23,31 @@ const BoardView = () => {
         console.log(err.message);
       });
   };
+
+  //download
+  const handleDownLoad = async () => {
+    await axios
+      .get(`${baseUrl}/board/contentdownload/${board.upload}`, {
+        responseType: "blob",
+      })
+      .then((res) => {
+        console.log("res.headers: " + res.headers);
+        const fileName = board.upload.substring(board.upload.indexOf("_") + 1);
+        const url = window.URL.createObjectURL(new Blob([res.data]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", fileName);
+        link.style.cssText = "display:none";
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+      })
+      .catch((err) => {
+        console.error(err.message);
+      });
+  };
+
+  const handleDelete = () => {};
 
   return (
     <div>
@@ -49,8 +74,42 @@ const BoardView = () => {
             <th>내용</th>
             <td colSpan="3">{board.content}</td>
           </tr>
+
+          <tr>
+            <th>파일</th>
+            {/* conSpan 행을 합칠 때 사용.
+            react에서는 사이 문자가 대문자이다.*/}
+            <td colSpan="3">
+              <button onClick={handleDownLoad}>
+                {board.upload
+                  ? board.upload.substring(board.upload.indexOf("_") + 1)
+                  : null}
+              </button>
+            </td>
+          </tr>
         </tbody>
       </table>
+
+      <Link className="btn btn-primary" to={`/board/list/${currentPage}`}>
+        리스트
+      </Link>
+      <Link
+        className="btn btn-primary"
+        to={`/board/write/${currentPage}/${num}/${board.ref}/${board.re_step}/${board.re_level}`}
+      >
+        답변
+      </Link>
+
+      <Link
+        className="btn btn-primary"
+        to={`/board/update/${currentPage}/${num}`}
+      >
+        수정
+      </Link>
+
+      <button className="btn btn-primary" onClick={handleDelete}>
+        삭제
+      </button>
     </div>
   );
 };
