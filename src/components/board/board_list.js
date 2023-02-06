@@ -11,10 +11,12 @@ const BoardList = () => {
   const { currentPage } = useParams();
 
   useEffect(() => {
+    console.log("dd: " + currentPage);
     getList(currentPage ? currentPage : 1);
   }, []);
 
   const getList = async (currentPage) => {
+    console.log("currentPage:", currentPage);
     await axios
       .get(baseUrl + "/board/list/" + currentPage)
       .then((res) => {
@@ -57,7 +59,7 @@ const BoardList = () => {
               //반복문은 필수로 key 값이 필요하다
               <TableRow
                 board={board}
-                currentPage={currentPage}
+                currentPage={pv.currentPage}
                 key={board.num}
               />
             );
