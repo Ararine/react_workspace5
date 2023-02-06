@@ -41,6 +41,7 @@ const BoardWrite = () => {
     formData.append("email", email);
     formData.append("subject", subject);
     formData.append("content", content);
+    // formData.append("currentPage", currentPage);
     console.log("filename:", filename);
 
     if (filename !== null) formData.append("filename", filename);
@@ -69,8 +70,8 @@ const BoardWrite = () => {
           filename: null,
         });
 
-        //navigator(`/board/list/${currentPage ? currentPage : 1}`);
-        navigator(`/board/list/${res.data}`);
+        navigator(`/board/list/${currentPage ? currentPage : 1}`);
+        // navigator(`/board/list/${res.data}`);
       })
       .catch((err) => {
         console.error(err.message);
