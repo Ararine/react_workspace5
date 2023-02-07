@@ -54,26 +54,31 @@ const BoardList = () => {
         </thead>
 
         <tbody>
-          {boardList.map((board) => {
-            return (
-              //반복문은 필수로 key 값이 필요하다
-              <TableRow
-                board={board}
-                currentPage={pv.currentPage}
-                key={board.num}
-              />
-            );
-          })}
+          {boardList &&
+            boardList.map((board) => {
+              return (
+                //반복문은 필수로 key 값이 필요하다
+                <TableRow
+                  board={board}
+                  currentPage={pv.currentPage}
+                  key={board.num}
+                />
+              );
+            })}
         </tbody>
       </table>
-      <PageNavigation
-        currentPage={pv.currentPage}
-        startPage={pv.startPage}
-        endPage={pv.endPage}
-        blockPage={pv.blockPage}
-        totalPage={pv.totalPage}
-        getList={getList}
-      />
+      {pv ? (
+        <PageNavigation
+          currentPage={pv.currentPage}
+          startPage={pv.startPage}
+          endPage={pv.endPage}
+          blockPage={pv.blockPage}
+          totalPage={pv.totalPage}
+          getList={getList}
+        />
+      ) : (
+        ""
+      )}
     </div>
   );
 };

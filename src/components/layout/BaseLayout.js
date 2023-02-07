@@ -13,14 +13,31 @@ function BaseLayout() {
           <ul className="navbar-nav mr-auto">
             <li className="nav-item">
               <NavLink style={activeStyle} className="nav-link" to="/">
-                Home
+                HOME
               </NavLink>
             </li>
+
+            <li className="nav-item">
+              {/*NavLink에서는 파라미터 값을 넘겨줄 수 없다.
+              일반 Link에서는 가능*/}
+              <NavLink style={activeStyle} className="nav-link" to="/login">
+                LOGIN
+              </NavLink>
+            </li>
+
+            <li className="nav-item">
+              {/*NavLink에서는 파라미터 값을 넘겨줄 수 없다.
+              일반 Link에서는 가능*/}
+              <NavLink style={activeStyle} className="nav-link" to="/join">
+                JOIN
+              </NavLink>
+            </li>
+
             <li className="nav-item">
               {/*NavLink에서는 파라미터 값을 넘겨줄 수 없다.
               일반 Link에서는 가능*/}
               <NavLink style={activeStyle} className="nav-link" to="/board">
-                Board
+                BOARD
               </NavLink>
             </li>
           </ul>
