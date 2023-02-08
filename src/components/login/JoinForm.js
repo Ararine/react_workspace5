@@ -10,7 +10,7 @@ const JoinForm = () => {
     username: "",
     password: "",
     email: "",
-    authRole: "",
+    authRole: "ROLE_MEMBER", // radio 에서 자동으로 잡혀 있는 초기값이 적용이 안되기 때문에 따로 정해준다.
   });
 
   const onSubmit = async (e) => {
@@ -18,6 +18,14 @@ const JoinForm = () => {
     await axios
       .post(`${baseUrl}/join`, member, {
         headers: { "Content-Type": "application/json" },
+      })
+      .then((response) => {
+        setMember({
+          username: "",
+          password: "",
+          email: "",
+          authRole: "ROLE_MEMBER",
+        });
       })
       .then((res) => {
         navigator("/");
